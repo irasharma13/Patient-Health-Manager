@@ -31,7 +31,7 @@ where `[PATIENT NAME]` is the name of the patient, `[PATIENT ID]` is the ID of t
 To build the program, simply run:
 
 
-To run the program, specify the input file and output file as arguments:
+To run the program, specify the input file as arguments:
 
 
 ## Testing
