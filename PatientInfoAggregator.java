@@ -1,6 +1,9 @@
 import java.util.Scanner;
 import java.util.HashMap;
 import java.io.*;
+import java.io.File;
+
+
 
 
 public class PatientInfoAggregator{
@@ -31,7 +34,25 @@ public class PatientInfoAggregator{
             
         }
 
-        File inputFile = new File(pathname:"input.txt");
+        File inputFile = new File("input.txt");
         Scanner scanner = new Scanner(inputFile);
+        
+        while(scanner.hasNextLine()){
+            String info = scanner.nextLine();
+
+            String[] words = info.split("");
+
+            if(words[0].equals("ADD")){
+                if(words[1].equals("PATIENT")){
+                    int id = Integer.parseInt(words[2]);
+                    String name = "";
+                    for(int i = 3; i<words.length; i++){
+                        name += words[3];
+                    }
+                    System.out.println("Id:"+id+"::Name:"+name);
+                }
+            }
+
+        }
     }
 }
