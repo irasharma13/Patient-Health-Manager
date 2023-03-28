@@ -1,8 +1,7 @@
 import java.util.*;
-import java.util.HashMap;
 import java.io.*;
 import java.io.File;
-import java.util.List;
+import java.io.FileWriter;
 
 
 
@@ -96,8 +95,13 @@ public class PatientInfoAggregator{
                         int id = Integer.parseInt(words[2]);
                         int examId = Integer.parseInt(words[3]);
                         if(exams.containsKey(id)){
-                            
-                            exams.get(id).remove(examId);
+                            List<Integer> examList = exams.get(id);
+                            if(examList.contains(examId)){
+                                examList.remove(examList.indexOf(examId));
+                            }
+                            else{
+                                System.out.println("Exam "+examId+" for patient "+id+" doesn't exist");
+                            }
                         }
                         else{
                             System.out.println("Patient "+id+" doesn't exist");
@@ -109,6 +113,27 @@ public class PatientInfoAggregator{
 
             }
         scanner.close();
+
+        File outputFile = new File("output.txt");
+        FileWriter writer = new FileWriter(outputFile);
+        
+        for(Integer id: patientInfo.keySet()){
+            String name = patientInfo.get(id);
+            List<Integer> examList = exams.get(id);
+            int examCount = 0;
+            if(examList == null){
+                examCount = 0;
+            }
+            else{
+                examCount = examList.size();
+            }
+
+            String output = "Name: "+ name +", Id: "+ id +", Exam Count: " + examCount + "\n";
+            writer.write(output);
+        }
+
+        writer.close();
+
         } 
         catch (IOException e){
             System.out.println("IOException");
